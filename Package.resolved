@@ -1,0 +1,33 @@
+{
+  "originHash" : "1a1865c9f113c3c716162b514c51dd0bf13451bfb5e48e0dfaa9b1bcac7d7f16",
+  "pins" : [
+    {
+      "identity" : "adelsonauthmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Ahmed23Adel/AdelsonAuthManager",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d3bf711b0023638427eb122f6986f752e637a1b2"
+      }
+    },
+    {
+      "identity" : "adelsonvalidator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Ahmed23Adel/AdelsonValidator",
+      "state" : {
+        "branch" : "main",
+        "revision" : "df19fc1b63953f456e8b4a814a57927ed3e62373"
+      }
+    },
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    }
+  ],
+  "version" : 3
+}
