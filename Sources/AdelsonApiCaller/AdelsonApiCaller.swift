@@ -13,7 +13,9 @@ import AdelsonAuthManager
 public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerType {
     
     private let maxRetries = 1
-    
+    public init(){
+        
+    }
     func call(url: String,
              params: [String : String],
              method: HTTPMethod,

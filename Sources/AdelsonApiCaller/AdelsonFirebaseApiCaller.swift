@@ -13,7 +13,9 @@ import AdelsonAuthManager
 public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     
     private let maxRetries = 1
-    
+    public init(){
+        
+    }
     func call(url: String,
              params: [String : String],
              method: HTTPMethod,
