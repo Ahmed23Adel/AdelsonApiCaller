@@ -16,7 +16,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     public init(){
         
     }
-    func call(url: String,
+    public func call(url: String,
              params: [String : String],
              method: HTTPMethod,
              config: AdelsonFirebaseAuthConfig
