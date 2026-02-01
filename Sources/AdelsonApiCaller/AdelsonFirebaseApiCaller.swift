@@ -16,8 +16,8 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     public init(){
         
     }
-    public func call(url: String,
-             params: [String : String],
+    public func call<R: Encodable & Sendable>(url: String,
+             params: R,
              method: HTTPMethod,
              config: AdelsonFirebaseAuthConfig
     ) async throws -> T {
@@ -30,9 +30,9 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
         )
     }
     
-    private func callWithRetry(
+    private func callWithRetry<R: Encodable & Sendable>(
         url: String,
-        params: [String : String],
+        params: R,
         method: HTTPMethod,
         config: AdelsonFirebaseAuthConfig,
         retryCount: Int
@@ -66,9 +66,9 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
         }
     }
     
-    private func callGivenUrl(
+    private func callGivenUrl<R: Encodable & Sendable>(
         url: String,
-        params: [String : String],
+        params: R,
         method: HTTPMethod,
         token: String
     ) async throws -> T {

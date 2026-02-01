@@ -16,8 +16,8 @@ public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerTy
     public init(){
         
     }
-    public func call(url: String,
-             params: [String : String],
+    public func call<R: Encodable & Sendable>(url: String,
+             params: R,
              method: HTTPMethod,
              config: AdelsonAuthConfig
     ) async throws -> T {
@@ -30,9 +30,9 @@ public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerTy
         )
     }
     
-    private func callWithRetry(
+    private func callWithRetry<R: Encodable & Sendable>(
         url: String,
-        params: [String : String],
+        params: R,
         method: HTTPMethod,
         config: AdelsonAuthConfig,
         retryCount: Int
@@ -71,9 +71,9 @@ public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerTy
         }
     }
     
-    private func callGivenUrl(
+    private func callGivenUrl<R: Encodable & Sendable>(
         url: String,
-        params: [String : String],
+        params: R,
         method: HTTPMethod,
         token: String
     ) async throws -> T {
