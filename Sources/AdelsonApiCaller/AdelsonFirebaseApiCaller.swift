@@ -10,7 +10,7 @@ import Alamofire
 import AdelsonAuthManager
 
 @available(macOS 10.15, *)
-class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
+public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     
     private let maxRetries = 1
     
