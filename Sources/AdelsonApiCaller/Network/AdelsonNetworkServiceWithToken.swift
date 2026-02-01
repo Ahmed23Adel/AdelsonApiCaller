@@ -48,6 +48,38 @@ final class AdelsonNetworkServiceWithToken<T: Decodable & Sendable>: AdelsonNetw
         }
     }
     
+    public func requestGet(
+            url: String,
+            queryParams: [String: String],
+            responseType: T.Type,
+            token: String
+    ) async throws -> T {
+        guard !token.isEmpty else {
+            throw AdelsonNetworkServiceWithTokenError.tokenNotProvided
+        }
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(
+                url,
+                method: .get,
+                parameters: queryParams,
+                encoding: URLEncoding.default,
+                headers: HTTPHeaders([
+                    "Authorization": "Bearer \(token)"
+                ])
+            )
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: T.self) { response in
+                switch response.result {
+                case .success(let value):
+                    continuation.resume(returning: value)
+                case .failure(let error):
+                    let tokenError = self.handleTokenError(response: response, error: error)
+                    continuation.resume(throwing: tokenError)
+                }
+            }
+        }
+    }
+    
     private func handleTokenError(response: DataResponse<T, AFError>, error: AFError) -> Error {
             // Check HTTP status code
             if let statusCode = response.response?.statusCode {
