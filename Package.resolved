@@ -1,5 +1,5 @@
 {
-  "originHash" : "1a1865c9f113c3c716162b514c51dd0bf13451bfb5e48e0dfaa9b1bcac7d7f16",
+  "originHash" : "4360a33b02216242dc0a7552dbbe480e4c7b5343d9fc29b6de02d4962a10a586",
   "pins" : [
     {
       "identity" : "adelsonauthmanager",
@@ -7,7 +7,7 @@
       "location" : "https://github.com/Ahmed23Adel/AdelsonAuthManager",
       "state" : {
         "branch" : "master",
-        "revision" : "c3ef6c635adf258530e73bdc01fd8c8dd328b189"
+        "revision" : "063fa89ff54438dc431425a682beb6835713a29d"
       }
     },
     {
