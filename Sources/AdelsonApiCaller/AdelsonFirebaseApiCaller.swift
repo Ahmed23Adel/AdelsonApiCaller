@@ -88,7 +88,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
         do {
             let tokenId = await config.fnFirebaseIdToken()
             return try await callGetGivenUrl(
-                url: url,
+                url: config.baseUrl + url,
                 queryParams: queryParams,
                 token: tokenId
             )
@@ -99,7 +99,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
                     throw error
                 }
                 return try await callGetWithRetry(
-                    url: url,
+                    url: config.baseUrl + url,
                     queryParams: queryParams,
                     config: config,
                     retryCount: retryCount + 1
