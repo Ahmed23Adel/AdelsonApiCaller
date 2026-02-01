@@ -14,10 +14,10 @@ import Alamofire
 final class AdelsonNetworkServiceWithToken<T: Decodable & Sendable>: AdelsonNetworkServiceWithTokenType {
     
     
-    public func request(
+    public func request<R: Encodable & Sendable>(
             url: String,
             method: Alamofire.HTTPMethod,
-            parameters: [String: String],
+            parameters: R,
             responseType: T.Type,
             token: String
     ) async throws -> T {
