@@ -53,7 +53,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
         do {
             let tokenId = await config.fnFirebaseIdToken()
             return try await callGivenUrl(
-                url: url,
+                url: config.baseUrl + url,
                 params: params,
                 method: method,
                 token: tokenId
