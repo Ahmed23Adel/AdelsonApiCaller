@@ -30,6 +30,56 @@ public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerTy
         )
     }
     
+    public func callGet(
+        url: String,
+        queryParams: [String: String],
+        config: AdelsonAuthConfig
+    ) async throws -> T {
+        return try await callGetWithRetry(
+            url: url,
+            queryParams: queryParams,
+            config: config,
+            retryCount: 0
+        )
+    }
+
+    private func callGetWithRetry(
+        url: String,
+        queryParams: [String: String],
+        config: AdelsonAuthConfig,
+        retryCount: Int
+    ) async throws -> T {
+        do {
+            let (accessToken, baseUrl) = await MainActor.run {
+                (config.mainAuthConfig.accessToken, config.baseUrl)
+            }
+            guard let accessToken else {
+                throw AdelsonNetworkServiceWithTokenError.tokenNotProvided
+            }
+            let networkService = AdelsonNetworkServiceWithToken<T>()
+            return try await networkService.requestGet(
+                url: baseUrl + url,
+                queryParams: queryParams,
+                responseType: T.self,
+                token: accessToken
+            )
+        } catch let error as AdelsonNetworkServiceWithTokenError {
+            switch error {
+            case .unauthorized:
+                guard retryCount < maxRetries else { throw error }
+                try await handleUnauthorizedCall(config: config)
+                return try await callGetWithRetry(
+                    url: url,
+                    queryParams: queryParams,
+                    config: config,
+                    retryCount: retryCount + 1
+                )
+            default:
+                throw error
+            }
+        }
+    }
+
     private func callWithRetry<R: Encodable & Sendable>(
         url: String,
         params: R,
@@ -38,12 +88,15 @@ public final class AdelsonApiCaller<T: Decodable & Sendable>: AdelsonApiCallerTy
         retryCount: Int
     ) async throws -> T {
         do {
-            guard let accessToken = await config.mainAuthConfig.accessToken else {
+            let (accessToken, baseUrl) = await MainActor.run {
+                (config.mainAuthConfig.accessToken, config.baseUrl)
+            }
+            guard let accessToken else {
                 throw AdelsonNetworkServiceWithTokenError.tokenNotProvided
             }
-            
+
             return try await callGivenUrl(
-                url: url,
+                url: baseUrl + url,
                 params: params,
                 method: method,
                 token: accessToken

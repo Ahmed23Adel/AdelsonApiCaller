@@ -18,7 +18,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     }
     public func call<R: Encodable & Sendable>(url: String,
              params: R,
-             method: AdelsonHTTPMethod,
+             method: HTTPMethod,
              config: AdelsonFirebaseAuthConfig
     ) async throws -> T {
         return try await callWithRetry(
@@ -46,7 +46,7 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     private func callWithRetry<R: Encodable & Sendable>(
         url: String,
         params: R,
-        method: AdelsonHTTPMethod,
+        method: HTTPMethod,
         config: AdelsonFirebaseAuthConfig,
         retryCount: Int
     ) async throws -> T {
@@ -113,13 +113,13 @@ public final class AdelsonFirebaseApiCaller<T: Decodable & Sendable> {
     private func callGivenUrl<R: Encodable & Sendable>(
         url: String,
         params: R,
-        method: AdelsonHTTPMethod,
+        method: HTTPMethod,
         token: String
     ) async throws -> T {
         let networkService = AdelsonNetworkServiceWithToken<T>()
         return try await networkService.request(
             url: url,
-            method: method.alamofireMethod,
+            method: method,
             parameters: params,
             responseType: T.self,
             token: token

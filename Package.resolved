@@ -7,7 +7,7 @@
       "location" : "https://github.com/Ahmed23Adel/AdelsonAuthManager",
       "state" : {
         "branch" : "master",
-        "revision" : "063fa89ff54438dc431425a682beb6835713a29d"
+        "revision" : "0a2167912e40850077d7f7406549178b6c03dc1f"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "7be73f6c2b5cd90e40798b06ebd5da8f9f79cf88",
-        "version" : "5.11.0"
+        "revision" : "7595cbcf59809f9977c5f6378500de2ad73b7ddb",
+        "version" : "5.12.0"
       }
     }
   ],
